@@ -20,18 +20,27 @@ import java.io.IOException;
  * Date: 18-5-4
  */
 public class FileUploadUtil {
+
+    static CloseableHttpClient httpClient;
+    static HttpPost httppost;
+
+    static {
+        httpClient = HttpClients.createDefault();
+        httppost = new HttpPost("http://localhost:8080/file/mvc/upload.do");
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(200000).setSocketTimeout(200000).build();
+        httppost.setConfig(requestConfig);
+    }
+
     public static void main(String[] args) {
+        mvcUpload();
+        mvcUpload();
+        mvcUpload();
         mvcUpload();
     }
 
     public static boolean mvcUpload() {
         boolean flag = false;
         try {
-            CloseableHttpClient httpClient = HttpClients.createDefault();
-            HttpPost httppost = new HttpPost("http://localhost:8080/file/mvc/upload.do");
-            RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(200000).setSocketTimeout(200000).build();
-            httppost.setConfig(requestConfig);
-
             FileBody bin = new FileBody(new File("E://test.txt"));
             StringBody projectId = new StringBody("projectId", ContentType.TEXT_PLAIN);
             StringBody fileName = new StringBody("fileName", ContentType.TEXT_PLAIN);
