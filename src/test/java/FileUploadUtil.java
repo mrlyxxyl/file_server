@@ -27,7 +27,8 @@ public class FileUploadUtil {
     static {
         httpClient = HttpClients.createDefault();
         httppost = new HttpPost("http://localhost:8080/file/mvc/upload.do");
-        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(200000).setSocketTimeout(200000).build();
+        //10秒连接超时，200秒上传超时
+        RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(10000).setSocketTimeout(200000).build();
         httppost.setConfig(requestConfig);
     }
 
